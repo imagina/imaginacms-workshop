@@ -12,6 +12,7 @@ use Modules\Workshop\Console\EntityScaffoldCommand;
 use Modules\Workshop\Console\ModuleScaffoldCommand;
 use Modules\Workshop\Console\ThemeScaffoldCommand;
 use Modules\Workshop\Console\UpdateModuleCommand;
+use Modules\Workshop\Console\ModuleMakeCommand;
 use Modules\Workshop\Events\Handlers\RegisterWorkshopSidebar;
 use Modules\Workshop\Manager\StylistThemeManager;
 use Modules\Workshop\Manager\ThemeManager;
@@ -83,6 +84,7 @@ class WorkshopServiceProvider extends ServiceProvider
             'command.asgard.module.update',
             'command.asgard.theme.scaffold',
             EntityScaffoldCommand::class,
+            ModuleMakeCommand::class
         ]);
     }
 
