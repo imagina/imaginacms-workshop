@@ -57,14 +57,26 @@ class EntityGenerator extends Generator
             }
             $this->generateRepositoriesFor($entity);
             $this->generateControllerFor($entity);
-            $this->generateRequestsFor($entity);
+
+            //=============== No Generar Vistas Admin - Backend
+            //$this->generateViewsFor($entity);
+
             $this->generateViewsFor($entity);
             $this->generateLanguageFilesFor($entity);
             $this->appendBindingsToServiceProviderFor($entity);
-            $this->appendResourceRoutesToRoutesFileFor($entity);
+
+            //=============== No Generar Rutas Admin - Backend 
+            //$this->appendResourceRoutesToRoutesFileFor($entity);
+           
             $this->appendPermissionsFor($entity);
             $this->appendSidebarLinksFor($entity);
-            $this->appendBackendTranslations($entity);
+
+            //=============== No Generar Links Sidebar Admin - Backend
+            //$this->appendSidebarLinksFor($entity);
+            
+            // Genere Api Routes
+            $this->generateApiRoutesFilesFor($entity);
+
         }
     }
 
@@ -190,6 +202,41 @@ class EntityGenerator extends Generator
             $this->getModulesPath("Database/Migrations/{$migrationName}"),
             $this->getContentForStub('create-translation-table-migration.stub', $entity)
         );
+    }
+
+     /**
+     * Generate Api Routes for the given entity
+     * @param string $entity
+     */
+    private function generateApiRoutesFilesFor($entity)
+    {
+
+        // Check if exist apiRoutes.php
+        $pathApi = $this->getModulesPath('Http/apiRoutes');
+        if (!$this->finder->isFile($pathApi.'.php')){
+            $this->writeFile(
+                $pathApi,
+                $this->getContentForStub('routes-api.stub',$entity)
+            );
+        }
+
+        // Append Api Routes for Entity
+        $this->appendResourceApiRoutesToRoutesFileFor($entity);
+
+    }
+
+    /**
+     * Append the api routes 
+     *
+     * @param  string                                       $entity
+     * @throws FileNotFoundException
+     */
+    private function appendResourceApiRoutesToRoutesFileFor($entity)
+    {
+        $routeContent = $this->finder->get($this->getModulesPath('Http/apiRoutes.php'));
+        $content = $this->getContentForStub('route-resource-api.stub', $entity);
+        $routeContent = str_replace('// append', $content, $routeContent);
+        $this->finder->put($this->getModulesPath('Http/apiRoutes.php'), $routeContent);
     }
 
     /**
