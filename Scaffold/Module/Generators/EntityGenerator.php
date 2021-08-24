@@ -74,8 +74,16 @@ class EntityGenerator extends Generator
             //=============== No Generar Links Sidebar Admin - Backend
             //$this->appendSidebarLinksFor($entity);
             
-            // Genere Api Routes
+            // Requests
+            $this->generateRequestsFor($entity);
+
+            // Generate API
+            $this->generateTransformerFor($entity);
             $this->generateApiRoutesFilesFor($entity);
+            $this->generateApiControllerFor($entity);
+
+            // Append Api Routes for Entity
+            $this->appendResourceApiRoutesToRoutesFileFor($entity);
 
         }
     }
@@ -120,6 +128,23 @@ class EntityGenerator extends Generator
         $this->writeFile(
             $this->getModulesPath("Http/Controllers/Admin/{$entity}Controller"),
             $this->getContentForStub('admin-controller.stub', $entity)
+        );
+    }
+
+    /**
+     * Generate the Api controller for the given entity
+     *
+     * @param string $entity
+     */
+    private function generateApiControllerFor($entity)
+    {
+        $path = $this->getModulesPath('Http/Controllers/Api');
+        if (! $this->finder->isDirectory($path)) {
+            $this->finder->makeDirectory($path);
+        }
+        $this->writeFile(
+            $this->getModulesPath("Http/Controllers/Api/{$entity}ApiController"),
+            $this->getContentForStub('api-controller.stub', $entity)
         );
     }
 
@@ -220,9 +245,23 @@ class EntityGenerator extends Generator
             );
         }
 
-        // Append Api Routes for Entity
-        $this->appendResourceApiRoutesToRoutesFileFor($entity);
+    }
 
+    /**
+     * Generate the Transformers for the given entity
+     *
+     * @param string $entity
+     */
+    private function generateTransformerFor($entity)
+    {
+        $path = $this->getModulesPath('Transformers');
+        if (! $this->finder->isDirectory($path)) {
+            $this->finder->makeDirectory($path);
+        }
+        $this->writeFile(
+            $this->getModulesPath("Transformers/{$entity}Transformer"),
+            $this->getContentForStub('transformer.stub', $entity)
+        );
     }
 
     /**

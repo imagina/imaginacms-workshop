@@ -1,0 +1,10 @@
+<?php
+
+namespace Modules\$MODULE_NAME$\Transformers;
+
+use Modules\Core\Icrud\Transformers\CrudResource;
+
+class $CLASS_NAME$Transformer extends CrudResource
+{
+    
+}

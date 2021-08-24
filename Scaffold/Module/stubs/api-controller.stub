@@ -1,0 +1,66 @@
+<?php
+
+namespace Modules\$MODULE_NAME$\Http\Controllers\Api;
+
+use Modules\Core\Icrud\Controllers\BaseCrudController;
+//Model Repository
+use Modules\$MODULE_NAME$\Repositories\$CLASS_NAME$Repository;
+//Model Requests
+use Modules\$MODULE_NAME$\Http\Requests\Create$CLASS_NAME$Request;
+use Modules\$MODULE_NAME$\Http\Requests\Update$CLASS_NAME$Request;
+//Transformer
+use Modules\$MODULE_NAME$\Transformers\$CLASS_NAME$Transformer;
+
+class $CLASS_NAME$ApiController extends BaseCrudController
+{
+  public $modelRepository;
+
+  public function __construct($CLASS_NAME$Repository $modelRepository)
+  {
+    $this->modelRepository = $modelRepository;
+  }
+  
+  /**
+   * Return request to create model
+   *
+   * @param $modelData
+   * @return false
+   */
+  public function modelCreateRequest($modelData)
+  {
+    return new Create$CLASS_NAME$Request($modelData);
+  }
+
+  /**
+   * Return request to create model
+   *
+   * @param $modelData
+   * @return false
+   */
+  public function modelUpdateRequest($modelData)
+  {
+    return new Update$CLASS_NAME$Request($modelData);
+  }
+
+  /**
+   * Return model collection transformer
+   *
+   * @param $data
+   * @return mixed
+   */
+  public function modelCollectionTransformer($data)
+  {
+    return $CLASS_NAME$Transformer::collection($data);
+  }
+
+  /**
+   * Return model transformer
+   *
+   * @param $data
+   * @return mixed
+   */
+  public function modelTransformer($data)
+  {
+    return new $CLASS_NAME$Transformer($data);
+  }
+}

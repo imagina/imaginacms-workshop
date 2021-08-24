@@ -8,7 +8,10 @@ php artisan asgard:module:scaffold
 
 ## Scaffold Entity
 
-Example: php artisan asgard:entity:scaffold <entity> <module>
+Example: 
+```bash
+php artisan asgard:entity:scaffold <entity> <module>
+```
 
 ```bash
 php artisan asgard:entity:scaffold Category Recipe

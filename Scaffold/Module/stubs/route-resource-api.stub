@@ -1,7 +1,7 @@
     $router->apiCrud([
       'module' => '$LOWERCASE_MODULE_NAME$',
       'prefix' => '$PLURAL_LOWERCASE_CLASS_NAME$',
-      'controller' => 'apiController',
+      'controller' => '$CLASS_NAME$ApiController',
       'middleware' => [//Optional, replace middlewar of every route. By default all routes has the auth middleware
         'create' => [],
         'index' => [],
