@@ -56,22 +56,22 @@ class EntityGenerator extends Generator
                 $this->generateMigrationsFor($entity);
             }
             $this->generateRepositoriesFor($entity);
-            $this->generateControllerFor($entity);
 
-            //=============== No Generar Vistas Admin - Backend
+            //=============== Admin Controller
+            //$this->generateControllerFor($entity);
+
+            //=============== Admin Views
             //$this->generateViewsFor($entity);
 
-            $this->generateViewsFor($entity);
             $this->generateLanguageFilesFor($entity);
             $this->appendBindingsToServiceProviderFor($entity);
 
-            //=============== No Generar Rutas Admin - Backend 
+            //=============== Admin Routes 
             //$this->appendResourceRoutesToRoutesFileFor($entity);
            
             $this->appendPermissionsFor($entity);
-            $this->appendSidebarLinksFor($entity);
-
-            //=============== No Generar Links Sidebar Admin - Backend
+            
+            //=============== Admin Links Sidebar
             //$this->appendSidebarLinksFor($entity);
             
             // Requests
