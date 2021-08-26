@@ -2,6 +2,6 @@
       'module' => '$LOWERCASE_MODULE_NAME$',
       'prefix' => '$PLURAL_LOWERCASE_CLASS_NAME$',
       'controller' => '$CLASS_NAME$ApiController',
-      'middleware' => []
+      //'middleware' => ['create' => [], 'index' => [], 'show' => [], 'update' => [], 'delete' => [], 'restore' => []]
     ]);
 // append
