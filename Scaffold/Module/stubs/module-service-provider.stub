@@ -41,6 +41,9 @@ class $MODULE$ServiceProvider extends ServiceProvider
         $this->publishConfig('$LOWERCASE_MODULE$', 'permissions');
         $this->publishConfig('$LOWERCASE_MODULE$', 'config');
 
+        $this->mergeConfigFrom($this->getModuleConfigFilePath('$LOWERCASE_MODULE$', 'settings'), "asgard.$LOWERCASE_MODULE$.settings");
+        $this->mergeConfigFrom($this->getModuleConfigFilePath('$LOWERCASE_MODULE$', 'settings-fields'), "asgard.$LOWERCASE_MODULE$.settings-fields");
+
         $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
     }
 
