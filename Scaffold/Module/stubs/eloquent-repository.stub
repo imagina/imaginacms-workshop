@@ -3,9 +3,9 @@
 namespace Modules\$MODULE_NAME$\Repositories\Eloquent;
 
 use Modules\$MODULE_NAME$\Repositories\$CLASS_NAME$Repository;
-use Modules\Core\Repositories\Eloquent\EloquentBaseRepository;
+use Modules\Core\Icrud\Repositories\Eloquent\EloquentCrudRepository;
 
-class Eloquent$CLASS_NAME$Repository extends EloquentBaseRepository implements $CLASS_NAME$Repository
+class Eloquent$CLASS_NAME$Repository extends EloquentCrudRepository implements $CLASS_NAME$Repository
 {
 
 	/**
@@ -23,7 +23,7 @@ class Eloquent$CLASS_NAME$Repository extends EloquentBaseRepository implements $
    	*/
   	public function filterQuery($query, $filter)
   	{
-    
+
     /**
      * Note: Add filter name to replaceFilters attribute to replace it
      *
