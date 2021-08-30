@@ -3,7 +3,6 @@
 namespace Modules\$MODULE_NAME$\Entities;
 
 use Astrotomic\Translatable\Translatable;
-use Modules\Core\Support\Traits\AuditTrait;
 use Modules\Core\Icrud\Entities\CrudModel;
 
 class $CLASS_NAME$ extends CrudModel
