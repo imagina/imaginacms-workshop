@@ -40,6 +40,7 @@ class $MODULE$ServiceProvider extends ServiceProvider
     {
        
         $this->publishConfig('$LOWERCASE_MODULE$', 'config');
+        $this->publishConfig('$LOWERCASE_MODULE$', 'crud-fields');
 
         $this->mergeConfigFrom($this->getModuleConfigFilePath('$LOWERCASE_MODULE$', 'settings'), "asgard.$LOWERCASE_MODULE$.settings");
         $this->mergeConfigFrom($this->getModuleConfigFilePath('$LOWERCASE_MODULE$', 'settings-fields'), "asgard.$LOWERCASE_MODULE$.settings-fields");
