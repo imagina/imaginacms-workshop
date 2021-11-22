@@ -26,7 +26,7 @@ class Eloquent$CLASS_NAME$Repository extends EloquentCrudRepository implements $
    * @param $filter
    * @return mixed
    */
-  public function filterQuery($query, $filter)
+  public function filterQuery($query, $filter, $params)
   {
 
     /**
