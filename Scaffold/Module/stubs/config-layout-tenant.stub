@@ -1,0 +1,9 @@
+    "$SYSTEM_NAME$"=>[
+      "organizationId" => $ORGANIZATION_ID$,
+      "email"=> "$EMAIL$",
+      "plan"=> "$PLAN$",
+      "title"=> "$TITLE$",
+      "password"=> "$PASSWORD$",
+      "url"=> "$SYSTEM_NAME$.weygo.co"
+    ],
+//append-config-layout
