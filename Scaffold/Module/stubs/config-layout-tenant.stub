@@ -4,6 +4,6 @@
       "plan"=> "$PLAN$",
       "title"=> "$TITLE$",
       "password"=> "$PASSWORD$",
-      "url"=> "$SYSTEM_NAME$.weygo.co"
+      "url"=> "$URL$"
     ],
 //append-config-layout
