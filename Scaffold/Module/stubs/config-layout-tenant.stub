@@ -4,6 +4,7 @@
       "plan"=> "$PLAN$",
       "title"=> "$TITLE$",
       "password"=> "$PASSWORD$",
-      "url"=> "$URL$"
+      "url"=> "$URL$",
+      "supassword"=> "$SUPASSWORD$"
     ],
 //append-config-layout
