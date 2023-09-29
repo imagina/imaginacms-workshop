@@ -28,7 +28,7 @@
   "require-dev": {
     "orchestra/testbench": "^8.5",
     "phpunit/phpunit": "^10",
-    "spatie/phpunit-snapshot-assertions": "^5.1.*"
+    "spatie/phpunit-snapshot-assertions": "^5.1"
   },
   "autoload-dev": {
     "psr-4": {
