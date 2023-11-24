@@ -20,6 +20,15 @@ class Eloquent$CLASS_NAME$Repository extends EloquentCrudRepository implements $
   protected $replaceSyncModelRelations = [];
 
   /**
+   * Attribute to define default relations
+   * all apply to index and show
+   * index apply in the getItemsBy
+   * show apply in the getItem
+   * @var array
+   */
+  protected $with = [/*all => [] ,index => [],show => []*/];
+
+  /**
    * Filter query
    *
    * @param $query
