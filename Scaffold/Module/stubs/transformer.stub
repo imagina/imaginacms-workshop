@@ -7,6 +7,12 @@ use Modules\Core\Icrud\Transformers\CrudResource;
 class $CLASS_NAME$Transformer extends CrudResource
 {
   /**
+   * Attribute to exclude relations from transformed data
+   * @var array
+   */
+  protected $excludeRelations = [];
+
+  /**
   * Method to merge values with response
   *
   * @return array
