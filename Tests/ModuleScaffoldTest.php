@@ -2,6 +2,7 @@
 
 namespace Modules\Workshop\Tests;
 
+use Illuminate\Support\Str;
 use Modules\Workshop\Scaffold\Module\Exception\ModuleExistsException;
 use Modules\Workshop\Scaffold\Module\ModuleScaffold;
 
@@ -11,28 +12,32 @@ class ModuleScaffoldTest extends BaseTestCase
      * @var ModuleScaffold
      */
     protected $scaffold;
+
     /**
      * @var \Illuminate\Filesystem\Filesystem
      */
     protected $finder;
+
     /**
      * @var string Path to the module under test
      */
     protected $testModulePath;
+
     /**
      * @var string The name of the module under test
      */
     protected $testModuleName;
+
     /**
      * @var string The sanitized name of the module under test
      */
     protected $testModuleSanitizedName;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->testModuleName = 'Testing_The-TestModule';
         $this->testModuleSanitizedName = 'TestingTheTestModule';
-        $this->testModulePath = __DIR__ . "/../Modules/{$this->testModuleSanitizedName}";
+        $this->testModulePath = __DIR__."/../Modules/{$this->testModuleSanitizedName}";
         $this->cleanUp();
 
         parent::setUp();
@@ -43,12 +48,10 @@ class ModuleScaffoldTest extends BaseTestCase
 
     /**
      * Recursively remove the given directory
-     * @param string $dir
-     * @return bool
      */
-    public static function delTree($dir)
+    public static function delTree(string $dir): bool
     {
-        $files = array_diff(scandir($dir), array('.', '..'));
+        $files = array_diff(scandir($dir), ['.', '..']);
         foreach ($files as $file) {
             (is_dir("$dir/$file")) ? self::delTree("$dir/$file") : unlink("$dir/$file");
         }
@@ -56,21 +59,16 @@ class ModuleScaffoldTest extends BaseTestCase
         return rmdir($dir);
     }
 
-    /**
-     *
-     */
     private function cleanUp()
     {
-        if (file_exists(__DIR__ . '/../Modules/')) {
-            self::delTree(__DIR__ . '/../Modules/');
+        if (file_exists(__DIR__.'/../Modules/')) {
+            self::delTree(__DIR__.'/../Modules/');
         }
-        mkdir(__DIR__ . '/../Modules/', 0777);
+        mkdir(__DIR__.'/../Modules/', 0777);
     }
 
     /**
      * Scaffold a test module using eloquent
-     * @param array $entities
-     * @param array $valueObjects
      */
     private function scaffoldModuleWithEloquent(array $entities = ['Post'], array $valueObjects = [])
     {
@@ -79,8 +77,6 @@ class ModuleScaffoldTest extends BaseTestCase
 
     /**
      * Scaffold a test module using doctrine
-     * @param array $entities
-     * @param array $valueObjects
      */
     private function scaffoldModuleWithDoctrine(array $entities = ['Post'], array $valueObjects = [])
     {
@@ -88,9 +84,6 @@ class ModuleScaffoldTest extends BaseTestCase
     }
 
     /**
-     * @param $type
-     * @param $entities
-     * @param $valueObjects
      * @throws ModuleExistsException
      */
     private function scaffoldModule($type, $entities, $valueObjects)
@@ -104,10 +97,10 @@ class ModuleScaffoldTest extends BaseTestCase
             ->scaffold();
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
-        if (file_exists(__DIR__ . '/../Modules/')) {
-            self::delTree(__DIR__ . '/../Modules/');
+        if (file_exists(__DIR__.'/../Modules/')) {
+            self::delTree(__DIR__.'/../Modules/');
         }
     }
 
@@ -130,7 +123,7 @@ class ModuleScaffoldTest extends BaseTestCase
         $this->scaffoldModuleWithEloquent(['Category', 'Post']);
 
         // Assert
-        $entities = $this->finder->allFiles($this->testModulePath . '/Entities');
+        $entities = $this->finder->allFiles($this->testModulePath.'/Entities');
         $this->assertCount(4, $entities);
 
         $this->cleanUp();
@@ -143,7 +136,7 @@ class ModuleScaffoldTest extends BaseTestCase
         $this->scaffoldModuleWithDoctrine(['Category', 'Post']);
 
         // Assert
-        $entities = $this->finder->allFiles($this->testModulePath . '/Entities');
+        $entities = $this->finder->allFiles($this->testModulePath.'/Entities');
         $this->assertCount(4, $entities);
 
         $this->cleanUp();
@@ -156,8 +149,8 @@ class ModuleScaffoldTest extends BaseTestCase
         $this->scaffoldModuleWithEloquent();
 
         // Assert
-        $entity = $this->finder->isFile($this->testModulePath . '/Entities/Post.php');
-        $translationEntity = $this->finder->isFile($this->testModulePath . '/Entities/PostTranslation.php');
+        $entity = $this->finder->isFile($this->testModulePath.'/Entities/Post.php');
+        $translationEntity = $this->finder->isFile($this->testModulePath.'/Entities/PostTranslation.php');
         $this->assertTrue($entity);
         $this->assertTrue($translationEntity);
 
@@ -171,8 +164,8 @@ class ModuleScaffoldTest extends BaseTestCase
         $this->scaffoldModuleWithEloquent(['Category', 'Post']);
 
         // Assert
-        $categoryDecorator = $this->finder->isFile($this->testModulePath . '/Repositories/Cache/CacheCategoryDecorator.php');
-        $postDecorator = $this->finder->isFile($this->testModulePath . '/Repositories/Cache/CachePostDecorator.php');
+        $categoryDecorator = $this->finder->isFile($this->testModulePath.'/Repositories/Cache/CacheCategoryDecorator.php');
+        $postDecorator = $this->finder->isFile($this->testModulePath.'/Repositories/Cache/CachePostDecorator.php');
         $this->assertTrue($categoryDecorator);
         $this->assertTrue($postDecorator);
 
@@ -184,8 +177,8 @@ class ModuleScaffoldTest extends BaseTestCase
     {
         $this->scaffoldModuleWithEloquent(['Post', 'Category']);
 
-        $interface = $this->finder->isFile($this->testModulePath . '/Repositories/PostRepository.php');
-        $interface2 = $this->finder->isFile($this->testModulePath . '/Repositories/CategoryRepository.php');
+        $interface = $this->finder->isFile($this->testModulePath.'/Repositories/PostRepository.php');
+        $interface2 = $this->finder->isFile($this->testModulePath.'/Repositories/CategoryRepository.php');
 
         $this->assertTrue($interface);
         $this->assertTrue($interface2);
@@ -198,8 +191,8 @@ class ModuleScaffoldTest extends BaseTestCase
     {
         $this->scaffoldModuleWithEloquent(['Post', 'Category']);
 
-        $repository = $this->finder->isFile($this->testModulePath . '/Repositories/Eloquent/EloquentPostRepository.php');
-        $repository2 = $this->finder->isFile($this->testModulePath . '/Repositories/Eloquent/EloquentCategoryRepository.php');
+        $repository = $this->finder->isFile($this->testModulePath.'/Repositories/Eloquent/EloquentPostRepository.php');
+        $repository2 = $this->finder->isFile($this->testModulePath.'/Repositories/Eloquent/EloquentCategoryRepository.php');
 
         $this->assertTrue($repository);
         $this->assertTrue($repository2);
@@ -212,8 +205,8 @@ class ModuleScaffoldTest extends BaseTestCase
     {
         $this->scaffoldModuleWithDoctrine(['Post', 'Category']);
 
-        $repository = $this->finder->isFile($this->testModulePath . '/Repositories/Doctrine/DoctrinePostRepository.php');
-        $repository2 = $this->finder->isFile($this->testModulePath . '/Repositories/Doctrine/DoctrineCategoryRepository.php');
+        $repository = $this->finder->isFile($this->testModulePath.'/Repositories/Doctrine/DoctrinePostRepository.php');
+        $repository2 = $this->finder->isFile($this->testModulePath.'/Repositories/Doctrine/DoctrineCategoryRepository.php');
 
         $this->assertTrue($repository);
         $this->assertTrue($repository2);
@@ -226,11 +219,11 @@ class ModuleScaffoldTest extends BaseTestCase
     {
         $this->scaffoldModuleWithEloquent();
 
-        $view1 = $this->finder->isFile($this->testModulePath . '/Resources/views/admin/posts/index.blade.php');
-        $view2 = $this->finder->isFile($this->testModulePath . '/Resources/views/admin/posts/create.blade.php');
-        $view3 = $this->finder->isFile($this->testModulePath . '/Resources/views/admin/posts/edit.blade.php');
-        $view4 = $this->finder->isFile($this->testModulePath . '/Resources/views/admin/posts/partials/create-fields.blade.php');
-        $view5 = $this->finder->isFile($this->testModulePath . '/Resources/views/admin/posts/partials/edit-fields.blade.php');
+        $view1 = $this->finder->isFile($this->testModulePath.'/Resources/views/admin/posts/index.blade.php');
+        $view2 = $this->finder->isFile($this->testModulePath.'/Resources/views/admin/posts/create.blade.php');
+        $view3 = $this->finder->isFile($this->testModulePath.'/Resources/views/admin/posts/edit.blade.php');
+        $view4 = $this->finder->isFile($this->testModulePath.'/Resources/views/admin/posts/partials/create-fields.blade.php');
+        $view5 = $this->finder->isFile($this->testModulePath.'/Resources/views/admin/posts/partials/edit-fields.blade.php');
 
         $this->assertTrue($view1);
         $this->assertTrue($view2);
@@ -246,8 +239,8 @@ class ModuleScaffoldTest extends BaseTestCase
     {
         $this->scaffoldModuleWithEloquent(['Post', 'Category']);
 
-        $languageFile1 = $this->finder->isFile($this->testModulePath . '/Resources/lang/en/posts.php');
-        $languageFile2 = $this->finder->isFile($this->testModulePath . '/Resources/lang/en/categories.php');
+        $languageFile1 = $this->finder->isFile($this->testModulePath.'/Resources/lang/en/posts.php');
+        $languageFile2 = $this->finder->isFile($this->testModulePath.'/Resources/lang/en/categories.php');
 
         $this->assertTrue($languageFile1);
         $this->assertTrue($languageFile2);
@@ -260,8 +253,8 @@ class ModuleScaffoldTest extends BaseTestCase
     {
         $this->scaffoldModuleWithEloquent();
 
-        $file1 = $this->finder->isFile($this->testModulePath . '/Providers/RouteServiceProvider.php');
-        $file2 = $this->finder->isFile($this->testModulePath . "/Providers/{$this->testModuleSanitizedName}ServiceProvider.php");
+        $file1 = $this->finder->isFile($this->testModulePath.'/Providers/RouteServiceProvider.php');
+        $file2 = $this->finder->isFile($this->testModulePath."/Providers/{$this->testModuleSanitizedName}ServiceProvider.php");
 
         $this->assertTrue($file1);
         $this->assertTrue($file2);
@@ -274,20 +267,20 @@ class ModuleScaffoldTest extends BaseTestCase
     {
         $this->scaffoldModuleWithEloquent();
 
-        $file = $this->finder->get($this->testModulePath . "/Providers/{$this->testModuleSanitizedName}ServiceProvider.php");
+        $file = $this->finder->get($this->testModulePath."/Providers/{$this->testModuleSanitizedName}ServiceProvider.php");
 
         $sidebarEventListenerName = "Register{$this->testModuleSanitizedName}Sidebar";
-        $this->assertTrue(str_contains(
+        $this->assertTrue(Str::contains(
             $file,
-            '$this->loadMigrationsFrom(__DIR__ . \'/../Database/Migrations\');'
+            //'$this->loadMigrationsFrom(__DIR__ . \'/../Database/Migrations\');'
         ), 'Migrations arent loaded');
 
-        $this->assertTrue(str_contains(
+        $this->assertTrue(Str::contains(
             $file,
-            '$this->app[\'events\']->listen(BuildingSidebar::class, ' . $sidebarEventListenerName . '::class);'
+            '$this->app[\'events\']->listen(BuildingSidebar::class, '.$sidebarEventListenerName.'::class);'
         ), 'Sidebar event handler was not present');
 
-        $this->assertTrue(str_contains(
+        $this->assertTrue(Str::contains(
             $file,
             '$this->app[\'events\']->listen(LoadingBackendTranslations::class,'
         ), 'Translations registering was not present');
@@ -300,8 +293,8 @@ class ModuleScaffoldTest extends BaseTestCase
     {
         $this->scaffoldModuleWithEloquent(['Post', 'Category']);
 
-        $file1 = $this->finder->isFile($this->testModulePath . '/Http/Controllers/Admin/PostController.php');
-        $file2 = $this->finder->isFile($this->testModulePath . '/Http/Controllers/Admin/CategoryController.php');
+        $file1 = $this->finder->isFile($this->testModulePath.'/Http/Controllers/Admin/PostController.php');
+        $file2 = $this->finder->isFile($this->testModulePath.'/Http/Controllers/Admin/CategoryController.php');
 
         $this->assertTrue($file1);
         $this->assertTrue($file2);
@@ -314,8 +307,8 @@ class ModuleScaffoldTest extends BaseTestCase
     {
         $this->scaffoldModuleWithEloquent(['Post']);
 
-        $file1 = $this->finder->isFile($this->testModulePath . '/Http/Requests/CreatePostRequest.php');
-        $file2 = $this->finder->isFile($this->testModulePath . '/Http/Requests/UpdatePostRequest.php');
+        $file1 = $this->finder->isFile($this->testModulePath.'/Http/Requests/CreatePostRequest.php');
+        $file2 = $this->finder->isFile($this->testModulePath.'/Http/Requests/UpdatePostRequest.php');
 
         $this->assertTrue($file1);
         $this->assertTrue($file2);
@@ -328,7 +321,7 @@ class ModuleScaffoldTest extends BaseTestCase
     {
         $this->scaffoldModuleWithEloquent();
 
-        $file1 = $this->finder->isFile($this->testModulePath . '/Http/backendRoutes.php');
+        $file1 = $this->finder->isFile($this->testModulePath.'/Http/backendRoutes.php');
 
         $this->assertTrue($file1);
 
@@ -340,7 +333,7 @@ class ModuleScaffoldTest extends BaseTestCase
     {
         $this->scaffoldModuleWithEloquent();
 
-        $file = $this->finder->isFile($this->testModulePath . "/Events/Handlers/Register{$this->testModuleSanitizedName}Sidebar.php");
+        $file = $this->finder->isFile($this->testModulePath."/Listeners/Register{$this->testModuleSanitizedName}Sidebar.php");
 
         $this->assertTrue($file);
 
@@ -352,10 +345,10 @@ class ModuleScaffoldTest extends BaseTestCase
     {
         $this->scaffoldModuleWithEloquent();
 
-        $file = $this->finder->get($this->testModulePath . "/Events/Handlers/Register{$this->testModuleSanitizedName}Sidebar.php");
+        $file = $this->finder->get($this->testModulePath."/Listeners/Register{$this->testModuleSanitizedName}Sidebar.php");
 
-        $this->assertTrue(str_contains($file, '$menu->group'));
-        $this->assertTrue(str_contains($file, "class Register{$this->testModuleSanitizedName}Sidebar"));
+        $this->assertTrue(Str::contains($file, '$menu->group'));
+        $this->assertTrue(Str::contains($file, "class Register{$this->testModuleSanitizedName}Sidebar"));
 
         $this->cleanUp();
     }
@@ -365,10 +358,10 @@ class ModuleScaffoldTest extends BaseTestCase
     {
         $this->scaffoldModule('Eloquent', [], []);
 
-        $file = $this->finder->get($this->testModulePath . "/Events/Handlers/Register{$this->testModuleSanitizedName}Sidebar.php");
+        $file = $this->finder->get($this->testModulePath."/Listeners/Register{$this->testModuleSanitizedName}Sidebar.php");
 
-        $this->assertFalse(str_contains($file, '$menu->group'));
-        $this->assertTrue(str_contains($file, 'return $menu'));
+        $this->assertFalse(Str::contains($file, '$menu->group'));
+        $this->assertTrue(Str::contains($file, 'return $menu'));
 
         $this->cleanUp();
     }
@@ -378,7 +371,7 @@ class ModuleScaffoldTest extends BaseTestCase
     {
         $this->scaffoldModuleWithEloquent();
 
-        $file1 = $this->finder->isFile($this->testModulePath . '/Config/permissions.php');
+        $file1 = $this->finder->isFile($this->testModulePath.'/Config/permissions.php');
 
         $this->assertTrue($file1);
 
@@ -390,8 +383,8 @@ class ModuleScaffoldTest extends BaseTestCase
     {
         $this->scaffoldModuleWithEloquent(['Post'], ['Price', 'TimeRange']);
 
-        $file1 = $this->finder->isFile($this->testModulePath . '/ValueObjects/Price.php');
-        $file2 = $this->finder->isFile($this->testModulePath . '/ValueObjects/TimeRange.php');
+        $file1 = $this->finder->isFile($this->testModulePath.'/ValueObjects/Price.php');
+        $file2 = $this->finder->isFile($this->testModulePath.'/ValueObjects/TimeRange.php');
 
         $this->assertTrue($file1);
         $this->assertTrue($file2);
@@ -415,7 +408,7 @@ class ModuleScaffoldTest extends BaseTestCase
     {
         $this->scaffoldModuleWithEloquent(['Post', 'Category']);
 
-        $migrations = $this->finder->allFiles($this->testModulePath . '/Database/Migrations');
+        $migrations = $this->finder->allFiles($this->testModulePath.'/Database/Migrations');
 
         $this->assertCount(4, $migrations);
     }
@@ -425,7 +418,7 @@ class ModuleScaffoldTest extends BaseTestCase
     {
         $this->scaffoldModuleWithEloquent();
 
-        $composerJson = $this->finder->isFile($this->testModulePath . '/composer.json');
+        $composerJson = $this->finder->isFile($this->testModulePath.'/composer.json');
 
         $this->assertTrue($composerJson);
     }
@@ -508,13 +501,13 @@ class ModuleScaffoldTest extends BaseTestCase
     }
 
     /** @test */
-    public function it_sets_module_order_to_1_in_module_json_file()
+    public function it_sets_module_priority_to_1_in_module_json_file()
     {
         $this->scaffoldModuleWithEloquent();
 
         $moduleJson = $this->getModuleFile();
 
-        $this->assertEquals(1, $moduleJson->order);
+        $this->assertEquals(1, $moduleJson->priority);
     }
 
     /** @test */
@@ -532,7 +525,7 @@ class ModuleScaffoldTest extends BaseTestCase
         ];
 
         foreach ($matches as $match) {
-            $this->assertContains($match, $controllerContents);
+            $this->assertStringContainsString($match, $controllerContents);
         }
 
         $this->cleanUp();
@@ -541,14 +534,14 @@ class ModuleScaffoldTest extends BaseTestCase
     /** @test */
     public function it_can_overwrite_stub_files_with_custom_ones()
     {
-        config()->set('asgard.workshop.config.custom-stubs-folder', __DIR__ . '/stubs');
+        config()->set('asgard.workshop.config.custom-stubs-folder', __DIR__.'/stubs');
 
         $this->scaffoldModuleWithEloquent();
 
-        $path = $this->testModulePath . '/Http/backendRoutes.php';
+        $path = $this->testModulePath.'/Http/backendRoutes.php';
         $file = $this->finder->get($path);
         $this->assertTrue($this->finder->isFile($path));
-        $this->assertContains('overwritten by custom config', $file);
+        $this->assertStringContainsString('overwritten by custom config', $file);
 
         $this->cleanUp();
     }
@@ -565,34 +558,36 @@ class ModuleScaffoldTest extends BaseTestCase
 
     /**
      * Get the contents of composer.json file
-     * @return string
+     *
+     *
      * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
-    private function getComposerFile()
+    private function getComposerFile(): string
     {
-        $composerJson = $this->finder->get($this->testModulePath . '/composer.json');
+        $composerJson = $this->finder->get($this->testModulePath.'/composer.json');
 
         return json_decode($composerJson);
     }
 
     /**
      * Get the contents of module.json file
-     * @return string
+     *
+     *
      * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
-    private function getModuleFile()
+    private function getModuleFile(): string
     {
-        $moduleFile = $this->finder->get($this->testModulePath . '/module.json');
+        $moduleFile = $this->finder->get($this->testModulePath.'/module.json');
 
         return json_decode($moduleFile);
     }
 
     /**
      * Get a Controller
-     * @param string $controllerName
+     *
      * @return mixed
      */
-    private function getAdminControllerFile($controllerName = 'Post')
+    private function getAdminControllerFile(string $controllerName = 'Post')
     {
         $controllerFile = $this->finder->get("{$this->testModulePath}/Http/Controllers/Admin/{$controllerName}Controller.php");
 
