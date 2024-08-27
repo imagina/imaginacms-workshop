@@ -2,6 +2,7 @@
       'module' => '$LOWERCASE_MODULE_NAME$',
       'prefix' => '$PLURAL_LOWERCASE_CLASS_NAME$',
       'controller' => '$CLASS_NAME$ApiController',
+      'permission' => '$LOWERCASE_MODULE_NAME$.$PLURAL_LOWERCASE_CLASS_NAME$',
       //'middleware' => ['create' => [], 'index' => [], 'show' => [], 'update' => [], 'delete' => [], 'restore' => []],
       // 'customRoutes' => [ // Include custom routes if needed
       //  [
