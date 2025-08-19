@@ -1,6 +1,8 @@
 {
     "name": "$VENDOR$/$LOWERCASE_MODULE_NAME$",
     "description": "",
+    "type": "laravel-module",
+    "license": "MIT",
     "authors": [
         {
             "name": "$AUTHOR_NAME$",
