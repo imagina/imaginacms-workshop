@@ -1,0 +1,40 @@
+    '$LOWERCASE_MODULE_NAME$.$PLURAL_LOWERCASE_CLASS_NAME$' => [
+        'manage' => [
+            'title' => '$LOWERCASE_MODULE_NAME$::$PLURAL_LOWERCASE_CLASS_NAME$.manage.title',
+            'description' => '$LOWERCASE_MODULE_NAME$::$PLURAL_LOWERCASE_CLASS_NAME$.manage.description',
+            'onlyFor' => [],
+            'defaultAccess' => []
+        ],
+        'index' => [
+            'title' => '$LOWERCASE_MODULE_NAME$::$PLURAL_LOWERCASE_CLASS_NAME$.list.title',
+            'description' => '$LOWERCASE_MODULE_NAME$::$PLURAL_LOWERCASE_CLASS_NAME$.index.description',
+            'onlyFor' => [],
+            'defaultAccess' => []
+        ],
+        'create' => [
+            'title' => '$LOWERCASE_MODULE_NAME$::$PLURAL_LOWERCASE_CLASS_NAME$.create.title',
+            'description' => '$LOWERCASE_MODULE_NAME$::$PLURAL_LOWERCASE_CLASS_NAME$.create.description',
+            'onlyFor' => [],
+            'defaultAccess' => []
+        ],
+        'edit' => [
+            'title' => '$LOWERCASE_MODULE_NAME$::$PLURAL_LOWERCASE_CLASS_NAME$.edit.title',
+            'description' => '$LOWERCASE_MODULE_NAME$::$PLURAL_LOWERCASE_CLASS_NAME$.edit.description',
+            'onlyFor' => [],
+            'defaultAccess' => []
+        ],
+        'destroy' => [
+            'title' => '$LOWERCASE_MODULE_NAME$::$PLURAL_LOWERCASE_CLASS_NAME$.destroy.title',
+            'description' => '$LOWERCASE_MODULE_NAME$::$PLURAL_LOWERCASE_CLASS_NAME$.destroy.description',
+            'onlyFor' => [],
+            'defaultAccess' => []
+        ],
+        'restore' => [
+            'title' => '$LOWERCASE_MODULE_NAME$::$PLURAL_LOWERCASE_CLASS_NAME$.restore.title',
+            'description' => '$LOWERCASE_MODULE_NAME$::$PLURAL_LOWERCASE_CLASS_NAME$.restore.description',
+            'onlyFor' => [],
+            'defaultAccess' => []
+        ],
+    ],
+    // append
+

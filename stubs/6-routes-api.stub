@@ -1,0 +1,8 @@
+<?php
+
+use Illuminate\Support\Facades\Route;
+// add-use-controller
+
+Route::prefix('/$LOWERCASE_MODULE_NAME$/v1')->group(function () {
+// append
+});

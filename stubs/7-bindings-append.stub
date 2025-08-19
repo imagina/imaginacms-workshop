@@ -1,0 +1,8 @@
+$this->app->bind($CLASS_NAME$Repository::class, function () {
+    $repository = new Eloquent$CLASS_NAME$Repository(new $CLASS_NAME$());
+
+    return config('app.cache')
+        ? new Cache$CLASS_NAME$Decorator($repository)
+        : $repository;
+});
+// append-bindings

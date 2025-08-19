@@ -1,0 +1,12 @@
+
+{
+    "name": "$MODULE_NAME$",
+    "alias": "$LOWERCASE_MODULE_NAME$",
+    "description": "manage $LOWERCASE_MODULE_NAME$",
+    "keywords": ["$LOWERCASE_MODULE_NAME$"],
+    "priority": 0,
+    "providers": [
+        "Modules\\$MODULE_NAME$\\Providers\\$MODULE_NAME$ServiceProvider"
+    ],
+    "files": []
+}

@@ -1,0 +1,16 @@
+<?php
+
+namespace Modules\$MODULE_NAME$\Http\Controllers\Api;
+
+use Imagina\Icore\Http\Controllers\CoreApiController;
+//Model
+use Modules\$MODULE_NAME$\Models\$CLASS_NAME$;
+use Modules\$MODULE_NAME$\Repositories\$CLASS_NAME$Repository;
+
+class $CLASS_NAME$ApiController extends CoreApiController
+{
+  public function __construct($CLASS_NAME$ $model, $CLASS_NAME$Repository $modelRepository)
+  {
+    parent::__construct($model, $modelRepository);
+  }
+}

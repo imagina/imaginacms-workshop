@@ -1,0 +1,9 @@
+<?php
+
+namespace Modules\$MODULE_NAME$\Repositories;
+
+use Imagina\Icore\Repositories\CoreRepository;
+
+interface $CLASS_NAME$Repository extends CoreRepository
+{
+}
